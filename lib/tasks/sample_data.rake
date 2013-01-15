@@ -18,6 +18,15 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+
+    users = User.all(limit: 10)
+    4.times do
+      title = Faker::Lorem.sentence(5)
+      genre = 0 + rand(2)
+      name = Faker::Lorem.sentence(5)
+      pages = 2 + rand(500)
+      users.each { |user| user.publications.create!(title: title, genre: genre, name: name, pages: pages) }
+    end
   end
 end
 

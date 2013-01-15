@@ -1,0 +1,23 @@
+<%= form_for(@publication) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  </br><h3>New publication :</h3></br>
+
+  <div class="field">
+    <%= f.text_field :title, placeholder: "Publication Title..." %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :genre, placeholder: "Genre... (0:journal, 1:conference)" %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :name, placeholder: "Support name..." %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :pages, placeholder: "Number of pages..." %>
+  </div>
+
+  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<% end %>

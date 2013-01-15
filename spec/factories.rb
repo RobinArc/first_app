@@ -10,4 +10,12 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :publication do
+    title "A Star Fall"
+    genre 0
+    name "Sciences et Avenir"
+    pages 72
+    user
+  end
 end

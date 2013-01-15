@@ -60,10 +60,19 @@ describe "User pages" do
 
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:p1) { FactoryGirl.create(:publication, user: user, title: "Foo", genre: 0, name: "Daily Star", pages: 16) }
+    let!(:p2) { FactoryGirl.create(:publication, user: user, title: "Bar", genre: 0, name: "Daily Star", pages: 16) }
+
     before { visit user_path(user) }
 
     it { should have_selector('h1',    text: user.name) }
     it { should have_selector('title', text: user.name) }
+
+    describe "publications" do
+      it { should have_content(p1.title) }
+      it { should have_content(p2.title) }
+      it { should have_content(user.publications.count) }
+    end
   end
 
   describe "signup" do

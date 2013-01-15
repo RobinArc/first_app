@@ -2,16 +2,18 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  firstname       :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :firstname, :password, :password_confirmation
   has_secure_password
+  has_many :publications, dependent: :destroy
 
   before_save { self.email.downcase! }
   before_save :create_remember_token
@@ -29,6 +31,10 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
 
   validates :password_confirmation, presence: true
+
+  def feed
+    Publication.where("user_id = ?", id)
+  end
 
   private
 
